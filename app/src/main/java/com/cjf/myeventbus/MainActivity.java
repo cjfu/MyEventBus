@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.cjf.eventbus.EventBus;
+import com.cjf.eventbus.MyEventBus;
 import com.cjf.eventbus.EventReceiver;
 import com.cjf.eventbus.ThreadMode;
 
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         btn_post = findViewById(R.id.btn_post);
         btn_jump = findViewById(R.id.btn_jump);
-        EventBus.getInstance().register(this);
+        MyEventBus.getInstance().register(this);
         btn_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getInstance().unRegister(this);
+        MyEventBus.getInstance().unRegister(this);
     }
 
     public void postMessage() {
@@ -51,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 super.run();
-                EventBus.getInstance().post("111");
+                MyEventBus.getInstance().post("111");
                 User user = new User();
                 user.setName("123");
-                EventBus.getInstance().post(user);
+                MyEventBus.getInstance().post(user);
             }
         }.start();
     }

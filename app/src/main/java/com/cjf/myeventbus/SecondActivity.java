@@ -1,13 +1,12 @@
 package com.cjf.myeventbus;
 
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.cjf.eventbus.EventBus;
+import com.cjf.eventbus.MyEventBus;
 import com.cjf.eventbus.EventReceiver;
 import com.cjf.eventbus.ThreadMode;
 
@@ -17,21 +16,20 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        EventBus.getInstance().register(this);
+        MyEventBus.getInstance().register(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getInstance().unRegister(this);
+        MyEventBus.getInstance().unRegister(this);
     }
 
     public void postMessage(View view) {
-        EventBus.getInstance().post("111");
+        MyEventBus.getInstance().post("111");
         User user = new User();
         user.setName("123");
-        EventBus.getInstance().post(user);
+        MyEventBus.getInstance().post(user);
     }
 
     @EventReceiver()
